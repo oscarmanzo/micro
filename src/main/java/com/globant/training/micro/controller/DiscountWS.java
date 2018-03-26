@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,35 +26,35 @@ public class DiscountWS {
 	private DiscountService discountService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public List getAll() {
+	public ResponseEntity<List> getAll() {
 		return null;	
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{idDiscount}")
-	public Discount getDiscount(@PathVariable Long idDiscount) {
+	@RequestMapping(value = "/{idDiscount}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Discount> getDiscount(@PathVariable Long idDiscount) {
 		return null;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/types")
-	public List getTypes() {
+	@RequestMapping(value = "/types", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List> getTypes() {
 		return null;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public Long create(@RequestBody Company company) {
+	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Long> create(@RequestBody Company company) {
 		return null;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
-	public Discount edit(@PathVariable Long idCompany,
+	@RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Discount> edit(@PathVariable Long idCompany,
 			             @PathVariable Long idProduct,
 			             @PathVariable Long idTipeDiscount,
 			             @RequestBody Discount discount) {
 		return null;
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/{idDiscount}")
-	public Boolean delete(@PathVariable Long idDiscount) {
+	@RequestMapping(value = "/{idDiscount}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> delete(@PathVariable Long idDiscount) {
 		return null;
 	}
 	

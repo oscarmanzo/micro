@@ -2,16 +2,17 @@ package com.globant.training.micro.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 
 /**
- * The persistent class for the employee database table.
+ * The persistent class for the product database table.
  * 
  */
 @Entity
-@NamedQuery(name="Employee.findAll", query="SELECT e FROM Employee e")
-public class Employee implements Serializable {
+@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
+public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -20,19 +21,19 @@ public class Employee implements Serializable {
 
 	private String name;
 
-	private String password;
+	private BigDecimal price;
 
-	private String user;
+	private String type;
 
 	//bi-directional many-to-one association to Discount
-	@OneToMany(mappedBy="employee")
+	@OneToMany(mappedBy="product")
 	private List<Discount> discounts;
 
 	//bi-directional many-to-one association to Company
 	@ManyToOne
 	private Company company;
 
-	public Employee() {
+	public Product() {
 	}
 
 	public long getId() {
@@ -51,20 +52,20 @@ public class Employee implements Serializable {
 		this.name = name;
 	}
 
-	public String getPassword() {
-		return this.password;
+	public BigDecimal getPrice() {
+		return this.price;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
-	public String getUser() {
-		return this.user;
+	public String getType() {
+		return this.type;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public List<Discount> getDiscounts() {
@@ -77,14 +78,14 @@ public class Employee implements Serializable {
 
 	public Discount addDiscount(Discount discount) {
 		getDiscounts().add(discount);
-		discount.setEmployee(this);
+		discount.setProduct(this);
 
 		return discount;
 	}
 
 	public Discount removeDiscount(Discount discount) {
 		getDiscounts().remove(discount);
-		discount.setEmployee(null);
+		discount.setProduct(null);
 
 		return discount;
 	}

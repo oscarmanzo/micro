@@ -6,12 +6,13 @@ import java.util.List;
 
 
 /**
- * The persistent class for the employee database table.
+ * The persistent class for the type_discount database table.
  * 
  */
 @Entity
-@NamedQuery(name="Employee.findAll", query="SELECT e FROM Employee e")
-public class Employee implements Serializable {
+@Table(name="type_discount")
+@NamedQuery(name="TypeDiscount.findAll", query="SELECT t FROM TypeDiscount t")
+public class TypeDiscount implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -20,19 +21,11 @@ public class Employee implements Serializable {
 
 	private String name;
 
-	private String password;
-
-	private String user;
-
 	//bi-directional many-to-one association to Discount
-	@OneToMany(mappedBy="employee")
+	@OneToMany(mappedBy="typeDiscount")
 	private List<Discount> discounts;
 
-	//bi-directional many-to-one association to Company
-	@ManyToOne
-	private Company company;
-
-	public Employee() {
+	public TypeDiscount() {
 	}
 
 	public long getId() {
@@ -51,22 +44,6 @@ public class Employee implements Serializable {
 		this.name = name;
 	}
 
-	public String getPassword() {
-		return this.password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getUser() {
-		return this.user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
-	}
-
 	public List<Discount> getDiscounts() {
 		return this.discounts;
 	}
@@ -77,24 +54,16 @@ public class Employee implements Serializable {
 
 	public Discount addDiscount(Discount discount) {
 		getDiscounts().add(discount);
-		discount.setEmployee(this);
+		discount.setTypeDiscount(this);
 
 		return discount;
 	}
 
 	public Discount removeDiscount(Discount discount) {
 		getDiscounts().remove(discount);
-		discount.setEmployee(null);
+		discount.setTypeDiscount(null);
 
 		return discount;
-	}
-
-	public Company getCompany() {
-		return this.company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
 	}
 
 }

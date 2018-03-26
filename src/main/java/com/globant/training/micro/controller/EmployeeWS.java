@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,17 +25,17 @@ public class EmployeeWS {
 	private EmployeService employeService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public List getAll() {
+	public ResponseEntity<List> getAll() {
 		return null;	
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/{idEmployee}")
-	public Employee getEmployee(@PathVariable Long idEmployee) {
+	@RequestMapping(value = "/{idEmployee}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Employee> getEmployee(@PathVariable Long idEmployee) {
 		return null;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public Long create(@RequestBody Employee employee) {
+	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Long> create(@RequestBody Employee employee) {
 		return null;
 	}
 	
