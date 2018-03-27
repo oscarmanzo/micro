@@ -1,6 +1,5 @@
 package com.globant.training.micro.controller;
 
-import java.net.URI;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.globant.training.micro.model.Discount;
 import com.globant.training.micro.model.TypeDiscount;
@@ -27,6 +25,9 @@ public class DiscountWS {
 	
 	@Autowired
 	private DiscountService discountService;
+	
+	@Autowired
+	private ClientWSProxy clientWSProxy;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Discount>> getAll() {
@@ -53,9 +54,12 @@ public class DiscountWS {
 		return response;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/apply", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Long> create(@RequestBody Discount discount) {
 		ResponseEntity<Long> response = null;
+
+		if (discount==null) new ResponseEntity(HttpStatus.METHOD_FAILURE);
+		
 		Long idDiscount = null;
 		
 		try {
@@ -74,6 +78,8 @@ public class DiscountWS {
 			             @PathVariable Long idProduct,
 			             @PathVariable Long idTipeDiscount,
 			             @RequestBody Discount discount) {
+
+		// TODO IMPLEMENTS
 		return null;
 	}
 
@@ -93,14 +99,4 @@ public class DiscountWS {
 		return response;
 	}
 
-	/**
-	 * WS Client
-	 * Invocacion de WS
-	 **/
-	private String readingList() {
-	    RestTemplate restTemplate = new RestTemplate();
-	    URI uri = URI.create("http://localhost:8090/recommended");
-	    return restTemplate.getForObject(uri, String.class);
-	  }
-	
 }

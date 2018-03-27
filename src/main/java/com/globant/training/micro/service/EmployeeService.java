@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.globant.training.micro.model.Employee;
 import com.globant.training.micro.repository.EmployeeRepository;
@@ -32,6 +33,11 @@ public class EmployeeService {
 		Employee = repository.save(Employee);
 		Long id = Employee.getId();
 		return id;
+	}
+
+	public boolean isEmployee(Long idEmployee, Long idCompany) {
+		Optional<Employee> optional = repository.findByCompany(idEmployee, idCompany);
+		return optional.isPresent();
 	}
 	
 }

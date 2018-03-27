@@ -59,5 +59,15 @@ public class EmployeeWS {
 		
 		return response;
 	}
+
+	@RequestMapping(value = "/{idEmployee}/isemployee/{idCompany}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> isEmployee(@PathVariable Long idEmployee,
+											  @PathVariable Long idCompany) {
+
+		boolean is = employeeService.isEmployee(idEmployee, idCompany);
+
+		ResponseEntity<Boolean> response = is? new ResponseEntity<Boolean>(is, HttpStatus.OK) : ResponseEntity.noContent().build();
+		return response;
+	}
 	
 }
